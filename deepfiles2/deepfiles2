@@ -1,0 +1,12 @@
+#! /bin/bash
+
+TEMPFILE=/tmp/$USER$$
+#countslash adds depth # in front of each line
+#store the output in the file
+find $* -type f 2>/dev/null | countslash | sort -g > $TEMPFILE
+depth=`tail -1 $TEMPFILE | cut -f1 -d' '`
+echo Max depth: $depth
+
+grep "^$depth " $TEMPFILE | cut -f2- -d' '
+
+rm -rf $TEMPFILE
